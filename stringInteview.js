@@ -266,3 +266,144 @@ let obj2 = Object.assign({}, obj);
 obj2.name = "kumar";
 console.log(obj2.hobbies[2] = "dance");
 console.log(obj2, obj);
+
+//get number of ele from array
+function getArrayEle(arr, n = 1) {
+    for (let i = 0; i < n; i++) {
+        console.log(arr[i])//from start
+        // console.log(arr[arr.length - 1 - i])//from last
+    }
+}
+getArrayEle([1, 2, 3, 4, 5], 3)
+
+
+//find the frequency of char 
+function findFrequency(str) {
+    let obj = {}
+    let data = Array.isArray(str) ? str : str.split("");
+    data.forEach((ele) => {
+        if (obj.hasOwnProperty(ele)) obj[ele]++;
+        else obj[ele] = 1
+    })
+    const keys = Object.keys(obj).reduce((acc, next) => {
+        return obj[acc] > obj[next] ? acc : next;
+    });
+    return keys
+}
+
+console.log(findFrequency("apple"));
+console.log(findFrequency([1, 1, 5, 1, 5, 9, 1]));
+
+
+// findLongestFrequency of a char
+function findLongestFrequency(str) {
+    let data = str.split("");
+    let count = 1;
+    let storeCount = 0;
+    let storeChar = "";
+    for (let i = 0; i < data.length - 1; i++) {
+        if (data[i] === data[i + 1]) {
+            count++;
+            if (count > storeCount) {
+                storeCount = count
+                storeChar = data[i];
+            }
+        } else {
+            count = 1
+        }
+    }
+    return { storeCount, storeChar };
+}
+
+console.log(findLongestFrequency("abbbcc"));
+
+
+//Write a function fetchData() that returns a promise which resolves with the string "Data fetched" after 2 seconds.
+
+function fetchData(time) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(`Data fetched in ${time} seconds`);
+        }, time * 1000)
+    })
+}
+
+async function getData() {
+    const data = await fetchData(2);
+    console.log(data);
+    const data2 = await fetchData(5);
+    console.log(data2);
+
+}
+// getData()
+
+
+// fetchData(5).then((data)=>{
+//     console.log(data);
+// })
+
+
+// Write a function that fetches the user details and their posts using chained promises
+function getUserId() {
+    return Promise.resolve(123);
+}
+
+// Assume these functions are predefined
+function fetchUserDetails(id) {
+    return Promise.resolve({ id, name: 'John Doe', email: 'john.doe@example.com' });
+}
+
+function fetchUserPosts(id) {
+    return Promise.resolve([
+        { postId: 1, content: 'First post content' },
+        { postId: 2, content: 'Second post content' },
+    ]);
+}
+// getUserId().then((userId) => {
+//     return fetchUserDetails(userId).then((userDetails) => ({ userId, userDetails }));
+// }).then(({ userId, userDetails }) => {
+//     return fetchUserPosts(userId).then((userPosts) => ({
+//         userDetails,
+//         userPosts,
+//     }));
+// }).then(({ userDetails, userPosts }) => {
+//     console.log('User Details:', userDetails);
+//     console.log('User Posts:', userPosts);
+//     return { userDetails, userPosts };
+// }).catch((error) => {
+//     console.error('An error occurred:', error);
+// });
+
+
+//shuffle the array values
+
+function shuffleArray(arr) {
+    let temp
+    for (let i = arr.length - 1; i > 0; i--) {
+        let random = Math.floor(Math.random() * i);
+        temp = arr[i];
+        arr[i] = arr[random];
+        arr[random] = temp;
+    }
+    console.log(arr, "arr")
+    return arr;
+}
+shuffleArray([1, 2, 3, 4, 5, 6])
+
+
+// union of two array
+function unionOfTwoArrays(arr1, arr2) {
+    return [...new Set([...arr1, ...arr2])];
+}
+console.log(unionOfTwoArrays([1, 2, 3], [2]));
+
+
+// generate 10 random numbers in 
+function generateRandomNo(num) {
+    let dataSet = new Set();
+    while (dataSet.size < num) {
+        dataSet.add(Math.floor(Math.random() * num) + 1);
+    }
+    return [...dataSet];
+}
+console.log(generateRandomNo(10));
